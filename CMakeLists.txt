@@ -40,6 +40,7 @@ FIND_PACKAGE( LCContent 03.00.00 REQUIRED )
 FIND_PACKAGE( DD4hep REQUIRED )
 FIND_PACKAGE( ROOT REQUIRED )
 FIND_PACKAGE( MarlinTrk REQUIRED )
+FIND_PACKAGE( TBB REQUIRED )
 
 
 FOREACH( pkg PandoraSDK Marlin MarlinUtil  LCContent DD4hep ROOT MarlinTrk )
@@ -77,6 +78,7 @@ ENDIF()
 # add library
 ADD_SHARED_LIBRARY( DDMarlinPandora ${DDMarlinPandora_SRCS} )
 
+TARGET_LINK_LIBRARIES(DDMarlinPandora TBB::tbb)
 
 ### INSTALL #################################################################
 
