@@ -242,28 +242,6 @@ private:
 
     mutable tbb::queuing_mutex p_mutex;
 
-    class CurrentClusterFit
-    {
-        using Cluster = pandora::Cluster;
-        using ClusterVector = std::vector<const Cluster*>;
-    public:
-        CurrentClusterFit(const ParConeClusteringAlgorithm& algo, const ClusterVector& c_vector, ClusterFitResultMap& c_fitMap) :
-            coneAlgorithm(algo),
-            clusterVector(c_vector),
-            clusterFitResultMap(c_fitMap),
-            p_result(pandora::STATUS_CODE_SUCCESS)
-        {}
-        virtual ~CurrentClusterFit() {}
-
-        void operator()(const tbb::blocked_range<std::size_t>& crange) const;
-        inline pandora::StatusCode getStatus() { return p_result; }
-
-    private:
-        const ParConeClusteringAlgorithm& coneAlgorithm;
-        const ClusterVector& clusterVector;
-        ClusterFitResultMap& clusterFitResultMap;
-        mutable pandora::StatusCode p_result;
-    };
 };
 
 class ParConeClusteringAlgorithmFactory : public pandora::AlgorithmFactory
